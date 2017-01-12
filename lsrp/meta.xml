@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<meta>
+  <info name="LSRP" description="Nowa lska." author= "Sim00n" version="1.0" />
+
+  <script src="lsrp.cs" type="server" lang="csharp" />
+  <script src="Tools.cs" type="server" lang="csharp" />
+  <script src="Commands.cs" type="server" lang="csharp" />
+  <script src="Config.cs" type="server" lang="csharp" />
+  <script src="Database.cs" type="server" lang="csharp" />
+  
+  <script src="client.js" type="client" lang="javascript" />
+
+  <file src="cef/login/test.html" />
+  <file src="cef/login/logo.png" />
+  <file src="cef/login/jquery311.js" />
+  <file src="cef/login/ui.js" />
+  
+  <assembly ref="Insight.Database.Configuration.dll" />
+  <assembly ref="Insight.Database.dll" />
+  <assembly ref="Insight.Database.Providers.Default.dll" />
+  <assembly ref="Insight.Database.Providers.MySql.dll" />
+  <assembly ref="MySql.Data.dll" />
+  <assembly ref="System.Data.dll" />
+  <assembly ref="System.Globalization.dll" />
+  <assembly ref="System.Configuration.dll" />
+  <assembly ref="BCrypt.Net.dll" />
+  
+</meta>

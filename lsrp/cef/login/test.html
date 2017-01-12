@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="utf-8" />
+	<style>
+		.inputfield {
+			background: #0d1d31;
+			border: 1px solid #083d80;
+			width:  200px;
+			height: 40px;
+			color: #fff;
+			font-size: 20px;
+			line-height: 40px;
+			text-decoration: none;
+			padding-left: 8px;
+		}
+		.loginButton {
+			background: #81b13b;
+			border: 1px solid #619b53;
+			width:  200px;
+			height: 40px;
+			color: #fff;
+			font-size: 20px;
+			line-height: 40px;
+		}
+		.loginButton:hover {
+			background: #9eb13b;
+			transform: scale(1.1);
+		}
+	</style>
+	<script type="text/javascript" src="jquery311.js"></script>
+	<script type="text/javascript" src="ui.js"></script>
+</head>
+<body onload="kurwa();">
+	<div style="width: 100%;">
+		<div style="width: 300px; margin: 10% auto 0 auto; background: #fff; border-radius: 3px; padding: 5%; text-align: center;">
+			<img src="logo.png" />
+			<br />
+			<span style="color: red;" id="message"></span>
+			<br />
+			<input type="text" class="inputfield" id="login" placeholder="Login" />
+			<br /><br />
+			<input type="password" class="inputfield" id="password" placeholder="Hasło" />
+			<br /><br />
+			<input type="button" class="loginButton" id="signin" onclick="signinfun();" value="Zaloguj" />
+		</div>
+	</div>
+</body>
+
+</html>
