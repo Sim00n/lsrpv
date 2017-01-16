@@ -7,6 +7,7 @@
   <script src="Commands.cs" type="server" lang="csharp" />
   <script src="Config.cs" type="server" lang="csharp" />
   <script src="Database.cs" type="server" lang="csharp" />
+  <script src="Item.cs" type="server" lang="csharp" />
   
   <script src="client.js" type="client" lang="javascript" />
 

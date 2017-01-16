@@ -13,15 +13,8 @@ using System.Globalization;
 
 public class LSRP : Script
 {
-	private Tools tools;
-
 	public LSRP()
 	{
-		/**
-		 * Set up common variables.
-		 */
-		tools = new Tools();
-
 		/**
 		 * Set up all the server-side callbacks.
 		 */
@@ -38,12 +31,12 @@ public class LSRP : Script
 
 	public void lsrp_OnGamemodeInit()
 	{
-		tools.log("OnGamemodeInit: loading ...", Config.LOGS.INFO);
+		Tools.getInstance().log("OnGamemodeInit: loading ...", Config.LOGS.INFO);
 	}
 
 	public void lsrp_OnPlayerConnected(Client player)
 	{
-		tools.log(player.name + " has connected.");
+		Tools.getInstance().log(player.name + " has connected.");
 
 		API.clearPlayerTasks(player);
 		API.freezePlayer(player, true);
@@ -68,7 +61,7 @@ public class LSRP : Script
 
 	public void lsrp_OnPlayerRespawn(Client player)
 	{
-		tools.log(player.name + " has respawned.");
+		Tools.getInstance().log(player.name + " has respawned.");
 		if(API.getEntityData(player, "logged_in") == false)
 		{
 			API.triggerClientEvent(player, "lsrp_loginscreen", "");
@@ -77,13 +70,13 @@ public class LSRP : Script
 
 	public void lsrp_OnPlayerFinishedDownload(Client player)
 	{
-		tools.log(player.name + " has finished dl and is spawning now.");
+		Tools.getInstance().log(player.name + " has finished dl and is spawning now.");
 		API.triggerClientEvent(player, "lsrp_loginscreen", "");
 	}
 
 	public void lsrp_OnClientEventTrigger(Client player, string eventName, params object[] arguments)
 	{
-		tools.log("Jakis event nadchodzi! : " + eventName);
+		Tools.getInstance().log("Jakis event nadchodzi! : " + eventName);
 		if (eventName == "lsrp_signin")
 		{
 			string username = arguments[0].ToString();
@@ -110,7 +103,7 @@ public class LSRP : Script
 			int cid = Convert.ToInt32(arguments[0]);
 			int player_global_id = API.getEntityData(player, "global_id");
 
-			IList<Database.characters> chars_query = Database.getInstane().db().QuerySql<Database.characters>(String.Format("SELECT * FROM characters WHERE owner = '{0}' AND cid = '{1}'", player_global_id, cid));
+			IList<Database.characters> chars_query = Database.getInstance().db().QuerySql<Database.characters>(String.Format("SELECT * FROM characters WHERE owner = '{0}' AND cid = '{1}'", player_global_id, cid));
 			if(chars_query.Count <= 0)
 			{
 				API.sendChatMessageToPlayer(player, "Inside");
@@ -128,13 +121,13 @@ public class LSRP : Script
 
 	public void lsrp_OnChatMessage(Client player, string message, CancelEventArgs e)
 	{
-		tools.ProxDetector(player, 30, "E6E6E6", String.Format("{0} mówi: {1}", player.name, message));
+		Tools.getInstance().ProxDetector(player, 30, "E6E6E6", String.Format("{0} mówi: {1}", player.name, message));
 		e.Cancel = true;
 	}
 
 	public int lsrp_PlayerLoginAttempt(Client player, string username, string password)
 	{
-		IList<Database.users> user_query = Database.getInstane().db().QuerySql<Database.users>(String.Format("SELECT * FROM users WHERE username = '{0}'", username));
+		IList<Database.users> user_query = Database.getInstance().db().QuerySql<Database.users>(String.Format("SELECT * FROM users WHERE username = '{0}'", username));
 		if(user_query.Count <= 0)
 		{
 			return 1;
@@ -161,7 +154,7 @@ public class LSRP : Script
 	public int SelectCharacter(Client player)
 	{
 		int player_global_id = API.getEntityData(player, "global_id");
-		IList<Database.characters> chars_query = Database.getInstane().db().QuerySql<Database.characters>(String.Format("SELECT * FROM characters WHERE owner = '{0}'", player_global_id));
+		IList<Database.characters> chars_query = Database.getInstance().db().QuerySql<Database.characters>(String.Format("SELECT * FROM characters WHERE owner = '{0}'", player_global_id));
 		if(chars_query.Count <= 0)
 		{
 			return 0;
@@ -186,6 +179,8 @@ public class LSRP : Script
 		API.setPlayerNametag(player, char_info.name.Replace('_', ' '));
 		API.setEntityPosition(player, new Vector3(char_info.posx, char_info.posy, char_info.posz));
 		API.setEntityDimension(player, char_info.dimension);
+
+		Items.getInstance().LoadPlayerItems(player);
 
 		API.sendChatMessageToPlayer(player, "~#FF00FF~Witaj ~g~na ~#FF0000~serwerze!");
 	}

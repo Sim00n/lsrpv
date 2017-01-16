@@ -1,5 +1,6 @@
 ﻿var cef = null;
 var character_choice_menu = null;
+var items_list_menu = null;
 
 API.onResourceStart.connect(function() {
 	// nic
@@ -56,12 +57,35 @@ API.onServerEventTrigger.connect(function (eventName, args) {
 		character_choice_menu.Visible = true;
 
 		API.sendChatMessage("Testing character selection ...");
+	} else if (eventName == 'lsrp_show_own_items') {
+		API.sendChatMessage(args[0]);
+		var items = JSON.parse(args[0]);
+
+		items_list_menu = API.createMenu("LS-RP V", "Przedmioty", 0, 0, 4);
+		items_list_menu.ResetKey(menuControl.Back);
+
+		for (i = 0; i < items.length; i++) {
+			items_list_menu.AddItem(API.createMenuItem(items[i].name, "" + items[i].iid));
+		}
+
+		items_list_menu.OnItemSelect.connect(function (sender, item, index) {
+			items_list_menu.Visible = false;
+			items_list_menu = null;
+			API.showCursor(false);
+			API.triggerServerEvent("lsrp_use_item", item.Description);
+		});
+
+		API.showCursor(true);
+		items_list_menu.Visible = true;
 	}
 });
 
 API.onUpdate.connect(function () {
 	if (character_choice_menu != null) {
 		API.drawMenu(character_choice_menu);
+	}
+	if (items_list_menu != null) {
+		API.drawMenu(items_list_menu);
 	}
 });
 

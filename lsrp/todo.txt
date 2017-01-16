@@ -1,0 +1,20 @@
+﻿[x] Konta
+	[x] Logowanie OOC
+	[x] Wybór postaci
+
+[x] Postać
+	[x] Wczytywanie statystyk z bazy
+	[x] Zapisywanie statystyk po wyjściu do bazy
+
+[x] Czaty IC/OOC
+
+[ ] Przedmioty
+	[x] Podstawowa struktura
+	[x] Ładowanie z bazy
+	[x] /p z listą
+	[ ] Odkładanie przedmiotów
+	[x] Używanie przedmiotów
+	[ ] Usuwanie przedmiotów po użyciu
+		[x] Z gry
+		[ ] Z bazy
+	

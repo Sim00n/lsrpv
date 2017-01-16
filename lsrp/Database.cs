@@ -19,7 +19,7 @@ public class Database
 		_database = new MySqlConnectionStringBuilder(String.Format("server={0};user={1};database={2};port={3};password={4};", Config.DB_HOST, Config.DB_USER, Config.DB_DB, Config.DB_PORT, Config.DB_PASS));
 	}
 
-	public static Database getInstane()
+	public static Database getInstance()
 	{
 		if (Database.instance == null)
 		{
@@ -76,7 +76,22 @@ public class Database
 				posz = '{10}'
 				WHERE cid = '{0}'";
 
-			Database.getInstane().db().QuerySql(String.Format(query, cid, hours, minutes, health, skin, money, bankmoney, dimension, posx, posy, posz));
+			Database.getInstance().db().QuerySql(String.Format(query, cid, hours, minutes, health, skin, money, bankmoney, dimension, posx, posy, posz));
 		}
+	}
+
+	public class items
+	{
+		public int iid { get; set; }
+		public int type { get; set; }
+		public int owner { get; set; }
+		public int place { get; set; }
+		public string name { get; set; }
+		public int int1 { get; set; }
+		public int int2 { get; set; }
+		public int int3 { get; set; }
+		public string str1 { get; set; }
+		public string str2 { get; set; }
+		public string str3 { get; set; }
 	}
 }

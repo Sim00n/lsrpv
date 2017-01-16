@@ -74,6 +74,7 @@
     <Compile Include="Commands.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="Config.cs" />
+    <Compile Include="Item.cs" />
     <Compile Include="lsrp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools.cs" />
@@ -85,6 +86,7 @@
     <Content Include="client.js" />
     <Content Include="cef\login\test.html" />
     <Content Include="meta.xml" />
+    <Content Include="todo.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

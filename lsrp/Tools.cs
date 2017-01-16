@@ -9,6 +9,26 @@ using GTANetworkShared;
 
 public class Tools : Script
 {
+	public static Tools tools = null;
+
+	public static Tools getInstance()
+	{
+		if(tools == null)
+		{
+			tools = new Tools();
+		}
+		return Tools.tools;
+	}
+
+	public Tools()
+	{
+		if(Tools.tools != null)
+		{
+			return;
+		}
+		Tools.tools = this;
+	}
+
 	public void ChatError(Client player, string error)
 	{
 		API.sendChatMessageToPlayer(player, String.Format("~#FF0000~[Błąd]~#FFFFFF~: {0}", error));
@@ -21,6 +41,11 @@ public class Tools : Script
 		{
 			API.sendChatMessageToPlayer(p, String.Format("~#{0}~", color), message);
 		}
+	}
+
+	public void SelfMessage(Client player, string color, string message)
+	{
+		API.sendChatMessageToPlayer(player, String.Format("~#{0}~", color), message);
 	}
 
 	public void log(string log_message, Config.LOGS log_type = Config.LOGS.DEBUG)
@@ -48,5 +73,10 @@ public class Tools : Script
 					break;
 				}
 		}
+	}
+
+	public static int clamp(int value, int min, int max)
+	{
+		return value < min ? min : (value > max ? max : value);
 	}
 }
