@@ -132,6 +132,13 @@ class Commands : Script
 	[Command("bw", GreedyArg = true)]
 	public void COMMAND_bw(Client player, string command)
 	{
+		// Make sure the player can access this command.
+		if (!Player.getInstance().IsPlayerAdmin(player))
+		{
+			NoPermission(player);
+			return;
+		}
+
 		string[] cmds = command.Split(' ');
 
 		// If no parameters passed show command error.
@@ -190,8 +197,7 @@ class Commands : Script
 				return;
 			}
 
-			Database.characters character = API.getEntityData(player, "char");
-			character.bw = bw_time * 60;
+			Player.getInstance().SetPlayerBW(player, bw_time * 60);
 			Success(player, "BW zostało nadane.");
 			
 		} else
@@ -259,6 +265,10 @@ class Commands : Script
 	public static void Success(Client player, string success_msg)
 	{
 		Tools.getInstance().SelfMessage(player, Config.COLOR_GREEN, String.Format("[Sukces]: {0}", success_msg));
+	}
+	public static void NoPermission(Client player)
+	{
+		Tools.getInstance().SelfMessage(player, Config.COLOR_RED, String.Format("[Błąd]: Nie posiadasz uprawnień do tej komendy."));
 	}
 
 	/**

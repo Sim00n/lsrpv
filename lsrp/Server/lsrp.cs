@@ -20,7 +20,7 @@ public class LSRP : Script
 		 */
 		API.onResourceStart += lsrp_OnGamemodeInit;
 		API.onResourceStop += lsrp_OnGamemodeStop;
-        API.onClientEventTrigger += lsrp_OnClientEventTrigger;
+		API.onClientEventTrigger += lsrp_OnClientEventTrigger;
 		API.onChatMessage += lsrp_OnChatMessage;
 
 		API.onPlayerConnected += lsrp_OnPlayerConnected;
@@ -119,7 +119,6 @@ public class LSRP : Script
 
 			Database.characters c = chars_query[0];
 			API.setEntityData(player, "char", c);
-			API.sendChatMessageToPlayer(player, "Outside");
 			UseCharacter(player);
 			return;
 		}

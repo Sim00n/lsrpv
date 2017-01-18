@@ -6,7 +6,7 @@ var hud = {};
 hud.money = 0;
 hud.bankmoney = 0;
 
-API.onResourceStart.connect(function() {
+API.onResourceStart.connect(function () {
 	// nic
 });
 
@@ -44,7 +44,6 @@ API.onServerEventTrigger.connect(function (eventName, args) {
 		var chars = JSON.parse(args[0]);
 
 		character_choice_menu = API.createMenu("LS-RP V", "Wybierz postać", 0, 0, 4);
-		character_choice_menu.ResetKey(menuControl.Back);
 
 		for (i = 0; i < chars.length; i++) {
 			character_choice_menu.AddItem(API.createMenuItem(chars[i].name, "" + chars[i].cid));
@@ -59,13 +58,10 @@ API.onServerEventTrigger.connect(function (eventName, args) {
 
 		API.showCursor(true);
 		character_choice_menu.Visible = true;
-
-		API.sendChatMessage("Testing character selection ...");
 	} else if (eventName == 'lsrp_show_own_items') {
 		var items = JSON.parse(args[0]);
 
 		items_list_menu = API.createMenu("LS-RP V", "Przedmioty", 0, 0, 4);
-		items_list_menu.ResetKey(menuControl.Back);
 
 		for (i = 0; i < items.length; i++) {
 			items_list_menu.AddItem(API.createMenuItem(items[i].name, "" + items[i].iid));
@@ -99,7 +95,11 @@ API.onUpdate.connect(function () {
 });
 
 API.onKeyDown.connect(function (sender, e) {
-	// nic
+	if (e.KeyCode == Keys.Escape) {
+		items_list_menu.Visible = false;
+		items_list_menu = null;
+		API.showCursor(false);
+	}
 });
 
 class CefHelper {

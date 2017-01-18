@@ -257,8 +257,26 @@ class Item : Script
 
 	public void Destroy()
 	{
-		Database.getInstance().db().QuerySql("DELETE FROM items WHERE iid = '{0}'", iid);
+		Database.getInstance().db().QuerySql(String.Format("DELETE FROM items WHERE iid = '{0}'", iid));
 		Items.getInstance().Remove(this);
+	}
+
+	public void PutDown(Client player)
+	{
+		//Database.characters character = API.getEntityData(player, "char");
+
+		// Put the item down in the vehicle
+		if(API.isPlayerInAnyVehicle(player))
+		{
+
+		} else
+		{
+			Vector3 pos = API.getEntityPosition(player);
+			int dimension = API.getEntityDimension(player);
+
+
+		}
+
 	}
 }
 

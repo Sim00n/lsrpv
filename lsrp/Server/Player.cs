@@ -42,7 +42,12 @@ class Player : Script
 		return;
 	}
 
-	/*public void SetPlayerBW(Client player, int duration)
+	public bool IsPlayerAdmin(Client player)
+	{
+		return API.getEntityData(player, "global_admin") != 0;
+	}
+
+	public void SetPlayerBW(Client player, int duration)
 	{
 		if(duration <= 0)
 		{
@@ -50,11 +55,14 @@ class Player : Script
 		}
 
 		Database.characters character = API.getEntityData(player, "char");
+		Vector3 pos = API.getEntityPosition(player);
+		character.posx = pos.X;
+		character.posy = pos.Y;
+		character.posz = pos.Z;
 		character.bw = duration;
 		character.save();
 
-		//API.
-
+		API.freezePlayer(player, true);
 		return;
-	}*/
+	}
 }

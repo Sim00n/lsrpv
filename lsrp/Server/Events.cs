@@ -82,12 +82,6 @@ class Events : Script
 
 	public void lsrp_OnPlayerDeath(Client player, NetHandle entityKiller, int weapon)
 	{
-		Vector3 pos = API.getEntityPosition(player);
-		Database.characters character = API.getEntityData(player, "char");
-		character.posx = pos.X;
-		character.posy = pos.Y;
-		character.posz = pos.Z;
-		character.bw = Config.BW_TIME;
-		character.save();
+		Player.getInstance().SetPlayerBW(player, Config.BW_TIME);
 	}
 }
