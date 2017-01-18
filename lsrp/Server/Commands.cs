@@ -32,6 +32,29 @@ class Commands : Script
 		API.consoleOutput("Loading all player itesm ...");
 	}
 
+	[Command("500plus")]
+	public void COMMAND_500plus(Client player)
+	{
+		Database.characters character = API.getEntityData(player, "char");
+		API.sendNotificationToPlayer(player, "Na Twoje konto wpłynęła wypłata $500.", true);
+		Player.getInstance().setBankMoney(player, character.bankmoney + Config.HOURLY_PAY);
+	}
+
+	[Command("a")]
+	public void COMMAND_anim(Client player, string a, string b)
+	{
+		API.playPlayerAnimation(player, (int) Config.AnimationFlags.Loop, a, b);
+		return;
+	}
+	// a_arrest_on_floor mp_arresting
+	[Command("s")]
+	public void COMMAND_stop(Client player)
+	{
+		API.stopPlayerAnimation(player);
+		return;
+	}
+
+
 	/**
 	 * **************************************************
 	 * Chat commands

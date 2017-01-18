@@ -54,7 +54,7 @@ class Events : Script
 		/**
 		 * Respawn when Brutally Wounded
 		 */
-		if (character.bw >= 0)
+		if (character.bw > 0)
 		{
 			API.setEntityPosition(player, new Vector3(character.posx, character.posy, character.posz));
 			API.setEntityDimension(player, character.dimension);
@@ -65,11 +65,11 @@ class Events : Script
 		/**
 		 * Respawn when nothing is affecting the player.
 		 */
-		{
+		
 			API.setEntityPosition(player, Config.SPAWN_POSITIONS[Tools.getInstance().rand.Next(Config.SPAWN_POSITIONS.Length)]);
 			API.setEntityDimension(player, character.dimension);
 			return;
-		}
+		
 	}
 
 

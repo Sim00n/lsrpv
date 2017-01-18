@@ -38,11 +38,53 @@ class Tasks : Script
 	}
 
 	public void lsrp_OneSecondTimer()
+	{		
+		List<Client> players = API.getAllPlayers();
+		if(players.Count == 0)
+		{
+			// !!!!!!!!!!! WARNING !!!!!!!!!!!
+			return;
+			// !!!!!!!!!!! WARNING !!!!!!!!!!!
+		}
+		
+		foreach (Client player in players)
+		{
+			// Ignore players that aren't logged in.
+			if (API.getEntityData(player, "logged_in") != true || !API.hasEntityData(player, "logged_in"))
+			{
+				continue;
+			}
+						
+			// Get player's db structure.
+			Database.characters character = API.getEntityData(player, "char");
+			
+			if(character == null)
+			{
+				continue;
+			}
+			
+			// Brutally Wounder timer.
+			if(character.bw > 0)
+			{
+				character.bw--;
+				if (character.bw == 0)
+				{
+					API.freezePlayer(player, false);
+					Commands.SELF_DO(player, "Otrząsnąłeś się po ostatniej wpadce i powoli dochodzisz do siebie.");
+					character.save();
+				}
+			}
+		}
+	}
+
+	public void lsrp_OneMinuteTimer()
 	{
+		API.setTime(12, DateTime.Now.Minute);
+
 		foreach (Client player in API.getAllPlayers())
 		{
 			// Ignore players that aren't logged in.
-			if (API.getEntityData(player, "logged_in") == false)
+			if (API.getEntityData(player, "logged_in") != true || !API.hasEntityData(player, "logged_in"))
 			{
 				continue;
 			}
@@ -50,41 +92,10 @@ class Tasks : Script
 			// Get player's db structure.
 			Database.characters character = API.getEntityData(player, "char");
 
-			// Brutally Wounder timer.
-			if(character.bw > 0)
-			{
-				API.sendChatMessageToPlayer(player, String.Format("Pozostało Ci {0} sekund", character.bw));
-				character.bw--;
-				if (character.bw == 0)
-				{
-					API.freezePlayer(player, false);
-					Commands.SELF_DO(player, "Otrząsnąłeś się po ostatniej wpadce i powoli dochodzisz do siebie.");
-				}
-			}
-
-			// Inform how many more minutes of BW status is left.
-			if (character.bw > 0)
-			{
-				int minutes = (int)Math.Floor((float)(character.bw / 60));
-				API.sendNotificationToPlayer(player, String.Format("Pozostało {0} minut BW.", minutes), false);
-			}
-		}
-	}
-
-	public void lsrp_OneMinuteTimer()
-	{
-		API.setTime(DateTime.Now.Hour, DateTime.Now.Minute);
-
-		foreach (Client player in API.getAllPlayers())
-		{
-			// Ignore players that aren't logged in.
-			if (API.getEntityData(player, "logged_in") == false)
+			if (character == null)
 			{
 				continue;
 			}
-
-			// Get player's db structure
-			Database.characters character = API.getEntityData(player, "char");
 
 			// Increase player time on the server by 1 minute.
 			character.minutes++;
@@ -92,10 +103,18 @@ class Tasks : Script
 			{
 				character.hours++;
 				character.minutes = 0;
+
+				// $500+ child support
+				API.sendNotificationToPlayer(player, "Na Twoje konto wpłynęła wypłata $500.", true);
+				Player.getInstance().setBankMoney(player, character.bankmoney + Config.HOURLY_PAY);
 			}
 
-
-
+			// Inform how many more minutes of BW status is left.
+			if (character.bw > 0)
+			{
+				int minutes = (int)Math.Ceiling((float)(character.bw / 60));
+				API.sendNotificationToPlayer(player, String.Format("Pozostało {0} minut BW.", minutes), false);
+			}
 		}
 	}
 
@@ -104,16 +123,21 @@ class Tasks : Script
 		foreach(Client player in API.getAllPlayers())
 		{
 			// Ignore players that aren't logged in.
-			if(API.getEntityData(player, "logged_in") == false)
+			if (API.getEntityData(player, "logged_in") != true || !API.hasEntityData(player, "logged_in"))
 			{
 				continue;
 			}
 
-			// Get player's db structure
+			// Get player's db structure.
 			Database.characters character = API.getEntityData(player, "char");
 
+			if (character == null)
+			{
+				continue;
+			}
+
 			// If the player has a watch, notify them of a full hour passing.
-			if(Items.getInstance().DoesPlayerHaveItemType(player, Item.TYPE.WATCH)) {
+			if (Items.getInstance().DoesPlayerHaveItemType(player, Item.TYPE.WATCH)) {
 				Commands.SELF_DO(player, String.Format("Twój zegarek zawibrował pokazując godzinę {0}:{1}.", DateTime.Now.Hour, DateTime.Now.Minute));
 			}
 

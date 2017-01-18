@@ -71,6 +71,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Server\Player.cs" />
     <Compile Include="Server\Commands.cs" />
     <Compile Include="Server\Database.cs" />
     <Compile Include="Server\Config.cs" />

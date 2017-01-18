@@ -19,7 +19,8 @@ public class LSRP : Script
 		 * Set up all the server-side callbacks.
 		 */
 		API.onResourceStart += lsrp_OnGamemodeInit;
-		API.onClientEventTrigger += lsrp_OnClientEventTrigger;
+		API.onResourceStop += lsrp_OnGamemodeStop;
+        API.onClientEventTrigger += lsrp_OnClientEventTrigger;
 		API.onChatMessage += lsrp_OnChatMessage;
 
 		API.onPlayerConnected += lsrp_OnPlayerConnected;
@@ -30,6 +31,16 @@ public class LSRP : Script
 	public void lsrp_OnGamemodeInit()
 	{
 		Tools.getInstance().log("OnGamemodeInit: loading ...", Config.LOGS.INFO);
+	}
+
+	public void lsrp_OnGamemodeStop()
+	{
+		foreach(Client player in API.getAllPlayers()) {
+			API.setEntityData(player, "char", null);
+			API.resetEntityData(player, "char");
+			API.setEntityData(player, "logged_in", false);
+			API.resetEntityData(player, "logged_in");
+		}
 	}
 
 	public void lsrp_OnPlayerConnected(Client player)
@@ -57,14 +68,17 @@ public class LSRP : Script
 			char_info.dimension = API.getEntityDimension(player);
 			char_info.health = API.getPlayerHealth(player);
 			char_info.save();
+			API.setEntityData(player, "logged_in", false);
 		}
 	}
 
 	public void lsrp_OnPlayerFinishedDownload(Client player)
 	{
 		Tools.getInstance().log(player.name + " has finished dl and is spawning now.");
-		API.triggerClientEvent(player, "lsrp_loginscreen", "");
-	}
+		//API.triggerClientEvent(player, "lsrp_loginscreen", "");
+		lsrp_PlayerLoginAttempt(player, "Sim00n", "gunwo");
+		SelectCharacter(player);
+    }
 
 	public void lsrp_OnClientEventTrigger(Client player, string eventName, params object[] arguments)
 	{
@@ -170,9 +184,14 @@ public class LSRP : Script
 		API.setPlayerName(player, char_info.name.Replace('_', ' '));
 		API.setPlayerNametag(player, char_info.name.Replace('_', ' '));
 
+		// Set position and dimension to respawn at
 		Events.getInstance().lsrp_OnPlayerRespawn(player);
 
+		// Load player items
 		Items.getInstance().LoadPlayerItems(player);
+
+		// Initialized their client-side scripts
+		API.triggerClientEvent(player, "lsrp_update_hud", char_info.money, char_info.bankmoney);
 
 		API.sendChatMessageToPlayer(player, "~#FF00FF~Witaj ~g~na ~#FF0000~serwerze!");
 	}
