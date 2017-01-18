@@ -10,6 +10,7 @@ using GTANetworkShared;
 public class Tools : Script
 {
 	public static Tools tools = null;
+	public Random rand;
 
 	public static Tools getInstance()
 	{
@@ -27,6 +28,7 @@ public class Tools : Script
 			return;
 		}
 		Tools.tools = this;
+		Tools.tools.rand = new Random();
 	}
 
 	public void ChatError(Client player, string error)

@@ -114,6 +114,19 @@ class Items : Script
 		return null;
 	}
 
+	public bool DoesPlayerHaveItemType(Client player, Item.TYPE type)
+	{
+		foreach (Item item in GetAllPlayerItems(player))
+		{
+			if(item.type == type)
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	/** 
 	 * TODO: Test if we can remove items in the middle of the loop...
 	 */

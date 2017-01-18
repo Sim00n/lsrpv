@@ -5,6 +5,7 @@
 [x] Postać
 	[x] Wczytywanie statystyk z bazy
 	[x] Zapisywanie statystyk po wyjściu do bazy
+	[x] BW
 
 [x] Czaty IC/OOC
 

@@ -25,8 +25,6 @@ public class LSRP : Script
 		API.onPlayerConnected += lsrp_OnPlayerConnected;
 		API.onPlayerDisconnected += lsrp_OnPlayerDisconnect;
 		API.onPlayerFinishedDownload += lsrp_OnPlayerFinishedDownload;
-
-		API.onPlayerRespawn += lsrp_OnPlayerRespawn;
 	}
 
 	public void lsrp_OnGamemodeInit()
@@ -39,32 +37,26 @@ public class LSRP : Script
 		Tools.getInstance().log(player.name + " has connected.");
 
 		API.clearPlayerTasks(player);
-		API.freezePlayer(player, true);
 		API.removeAllPlayerWeapons(player);
-		API.setPlayerToSpectator(player);
+		API.setEntityPosition(player, Config.LOGIN_POSITION);
+		API.setEntityDimension(player, 10000 + API.getAllPlayers().Count); // Probably not the most efficient way of doing this.
+		API.freezePlayer(player, true);
 
 		API.setEntityData(player, "logged_in", false);
-		API.triggerClientEvent(player, "lsrp_loginscreen", "");
 	}
 
 	public void lsrp_OnPlayerDisconnect(Client player, string reason)
 	{
-		Database.characters char_info = API.getEntityData(player, "char");
-		Vector3 pos = API.getEntityPosition(player);
-		char_info.posx = pos.X;
-		char_info.posy = pos.Y;
-		char_info.posz = pos.Z;
-		char_info.dimension = API.getEntityDimension(player);
-		char_info.health = API.getPlayerHealth(player);
-		char_info.save();
-	}
-
-	public void lsrp_OnPlayerRespawn(Client player)
-	{
-		Tools.getInstance().log(player.name + " has respawned.");
-		if(API.getEntityData(player, "logged_in") == false)
+		if (API.getEntityData(player, "logged_in") == true)
 		{
-			API.triggerClientEvent(player, "lsrp_loginscreen", "");
+			Database.characters char_info = API.getEntityData(player, "char");
+			Vector3 pos = API.getEntityPosition(player);
+			char_info.posx = pos.X;
+			char_info.posy = pos.Y;
+			char_info.posz = pos.Z;
+			char_info.dimension = API.getEntityDimension(player);
+			char_info.health = API.getPlayerHealth(player);
+			char_info.save();
 		}
 	}
 

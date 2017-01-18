@@ -58,7 +58,6 @@ API.onServerEventTrigger.connect(function (eventName, args) {
 
 		API.sendChatMessage("Testing character selection ...");
 	} else if (eventName == 'lsrp_show_own_items') {
-		API.sendChatMessage(args[0]);
 		var items = JSON.parse(args[0]);
 
 		items_list_menu = API.createMenu("LS-RP V", "Przedmioty", 0, 0, 4);

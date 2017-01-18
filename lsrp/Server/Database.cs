@@ -44,6 +44,9 @@ public class Database
 
 	public class characters
 	{
+		/**
+		 * Database saved stuff.
+		 */
 		public int cid { get; set; }
 		public int owner { get; set; }
 		public string name { get; set; }
@@ -59,7 +62,13 @@ public class Database
 		public float posx { get; set; }
 		public float posy { get; set; }
 		public float posz { get; set; }
+		public int bw { get; set; }
 		public bool online { get; set; }
+		
+		/**
+		 * Runtime stuff
+		 */
+
 
 		public void save()
 		{

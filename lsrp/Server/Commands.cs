@@ -13,12 +13,31 @@ class Commands : Script
 		API.onChatCommand += lsrp_OnChatCommand;
 	}
 
+	/**
+	 * **************************************************
+	 * Debug commands
+	 * **************************************************
+	 */
+
 	[Command("triger")]
 	public void CMD_triger(Client player)
 	{
 		API.triggerClientEvent(player, "lsrp_loginscreen", "");
 	}
-	
+
+	[Command("itemtest")]
+	public void COMMAND_itemtest(Client player)
+	{
+		Items.getInstance().LoadPlayerItems(player);
+		API.consoleOutput("Loading all player itesm ...");
+	}
+
+	/**
+	 * **************************************************
+	 * Chat commands
+	 * **************************************************
+	 */
+
 	[Command("do", GreedyArg = true)]
 	public void CHAT_do(Client player, string text)
 	{
@@ -60,13 +79,12 @@ class Commands : Script
 		return;
 	}
 
-	[Command("itemtest")]
-	public void COMMAND_itemtest(Client player)
-	{
-		Items.getInstance().LoadPlayerItems(player);
-		API.consoleOutput("Loading all player itesm ...");
-	}
-	
+	/**
+	 * **************************************************
+	 * Player commands
+	 * **************************************************
+	 */
+		
 	[Command("p")]
 	public void COMMAND_p(Client player)
 	{
@@ -79,14 +97,48 @@ class Commands : Script
 			ito.name = it.name;
 			itos.Add(ito);
 		}
-		string items_string = API.toJson(itos);
-		API.consoleOutput("Param: " + items_string);
-		API.triggerClientEvent(player, "lsrp_show_own_items", items_string);
+		API.triggerClientEvent(player, "lsrp_show_own_items", API.toJson(itos));
 		return;
 	}
 
 	/**
-	 * Ability to quickly send player actions.
+	 * **************************************************
+	 * Admin commands
+	 * **************************************************
+	 */
+
+
+
+	/**
+	 * **************************************************
+	 * Utils commands
+	 * **************************************************
+	 */
+
+	[Command("pos")]
+	public void COMMAND_pos(Client player, int x, int y, int z)
+	{
+		API.setEntityPosition(player, new Vector3(x, y, z));
+	}
+	
+	[Command("getpos")]
+	public void COMMAND_getpos(Client player)
+	{
+		Vector3 pos = API.getEntityPosition(player);
+		API.sendChatMessageToPlayer(player, String.Format("Current Position: {0}, {1}, {2}", pos.X, pos.Y, pos.Z));
+	}
+
+	[Command("getvw")]
+	public void COMMAND_getvw(Client player)
+	{
+		API.sendChatMessageToPlayer(player, String.Format("Aktualny świat to: {0}.", API.getEntityDimension(player)));
+	}
+
+
+	/**
+	 * **************************************************
+	 * Quick util functions to send DOs and MEs to players around the param player and to themselves.
+	 * **************************************************
 	 */
 	public static void PLAYER_ME(Client player, string text)
 	{
@@ -102,11 +154,13 @@ class Commands : Script
 	{
 		Tools.getInstance().SelfMessage(player, "9A9CCD", String.Format("** {0} **", text));
 	}
-	// **************************** //
-
 
 	/**
-	 * This is a chat command handler but we'll only use it for /me as gtan devs fucked us with their own implementation.
+	 * **************************************************
+	 * This is a chat command handler but we'll only use
+	 * it for /me as gtan devs fucked us with their own
+	 * implementation.
+	 * **************************************************
 	 */
 	public void lsrp_OnChatCommand(Client player, string command, CancelEventArgs e)
 	{

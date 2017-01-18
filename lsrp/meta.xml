@@ -2,28 +2,28 @@
 <meta>
   <info name="LSRP" description="Nowa lska." author= "Sim00n" version="1.0" />
 
-  <script src="lsrp.cs" type="server" lang="csharp" />
-  <script src="Tools.cs" type="server" lang="csharp" />
-  <script src="Commands.cs" type="server" lang="csharp" />
-  <script src="Config.cs" type="server" lang="csharp" />
-  <script src="Database.cs" type="server" lang="csharp" />
-  <script src="Item.cs" type="server" lang="csharp" />
+  <script src="Server/lsrp.cs" type="server" lang="csharp" />
+  <script src="Server/Tools.cs" type="server" lang="csharp" />
+  <script src="Server/Commands.cs" type="server" lang="csharp" />
+  <script src="Server/Config.cs" type="server" lang="csharp" />
+  <script src="Server/Database.cs" type="server" lang="csharp" />
+  <script src="Server/Items.cs" type="server" lang="csharp" />
   
-  <script src="client.js" type="client" lang="javascript" />
+  <script src="Client/client.js" type="client" lang="javascript" />
 
-  <file src="cef/login/test.html" />
-  <file src="cef/login/logo.png" />
-  <file src="cef/login/jquery311.js" />
-  <file src="cef/login/ui.js" />
+  <file src="Client/cef/login/test.html" />
+  <file src="Client/cef/login/logo.png" />
+  <file src="Client/cef/login/jquery311.js" />
+  <file src="Client/cef/login/ui.js" />
   
   <assembly ref="Insight.Database.Configuration.dll" />
   <assembly ref="Insight.Database.dll" />
   <assembly ref="Insight.Database.Providers.Default.dll" />
   <assembly ref="Insight.Database.Providers.MySql.dll" />
   <assembly ref="MySql.Data.dll" />
+  <assembly ref="BCrypt.Net.dll" />
   <assembly ref="System.Data.dll" />
   <assembly ref="System.Globalization.dll" />
   <assembly ref="System.Configuration.dll" />
-  <assembly ref="BCrypt.Net.dll" />
   
 </meta>
