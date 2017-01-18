@@ -8,6 +8,8 @@
   <script src="Server/Config.cs" type="server" lang="csharp" />
   <script src="Server/Database.cs" type="server" lang="csharp" />
   <script src="Server/Items.cs" type="server" lang="csharp" />
+  <script src="Server/Events.cs" type="server" lang="csharp" />
+  <script src="Server/Tasks.cs" type="server" lang="csharp" />
   
   <script src="Client/client.js" type="client" lang="javascript" />
 

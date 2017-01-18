@@ -81,4 +81,9 @@ public class Tools : Script
 	{
 		return value < min ? min : (value > max ? max : value);
 	}
+
+	public static string Capitalize(string str)
+	{
+		return str.First().ToString().ToUpper() + str.Substring(1);
+	}
 }

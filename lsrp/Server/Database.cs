@@ -82,10 +82,11 @@ public class Database
 				dimension = '{7}',
 				posx = '{8}',
 				posy = '{9}',
-				posz = '{10}'
+				posz = '{10}',
+				bw = '{11}'
 				WHERE cid = '{0}'";
 
-			Database.getInstance().db().QuerySql(String.Format(query, cid, hours, minutes, health, skin, money, bankmoney, dimension, posx, posy, posz));
+			Database.getInstance().db().QuerySql(String.Format(query, cid, hours, minutes, health, skin, money, bankmoney, dimension, posx, posy, posz, bw));
 		}
 	}
 

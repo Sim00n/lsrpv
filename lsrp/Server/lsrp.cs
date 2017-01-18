@@ -169,8 +169,8 @@ public class LSRP : Script
 		API.setPlayerSkin(player, (GTANetworkServer.PedHash) char_info.skin);
 		API.setPlayerName(player, char_info.name.Replace('_', ' '));
 		API.setPlayerNametag(player, char_info.name.Replace('_', ' '));
-		API.setEntityPosition(player, new Vector3(char_info.posx, char_info.posy, char_info.posz));
-		API.setEntityDimension(player, char_info.dimension);
+
+		Events.getInstance().lsrp_OnPlayerRespawn(player);
 
 		Items.getInstance().LoadPlayerItems(player);
 

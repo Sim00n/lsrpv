@@ -9,11 +9,24 @@ using GTANetworkShared;
 
 class Events : Script
 {
+	public static Events events = null;
+
 	public Events()
 	{
 		API.onPlayerHealthChange += lsrp_OnPlayerHealthChange;
 		API.onPlayerDeath += lsrp_OnPlayerDeath;
 		API.onPlayerRespawn += lsrp_OnPlayerRespawn;
+
+		Events.events = this;
+	}
+
+	public static Events getInstance()
+	{
+		if (Events.events == null)
+		{
+			Events.events = new Events();
+		}
+		return Events.events;
 	}
 
 	/**
@@ -44,6 +57,7 @@ class Events : Script
 		if (character.bw >= 0)
 		{
 			API.setEntityPosition(player, new Vector3(character.posx, character.posy, character.posz));
+			API.setEntityDimension(player, character.dimension);
 			API.freezePlayer(player, true);
 			return;
 		}
@@ -53,6 +67,7 @@ class Events : Script
 		 */
 		{
 			API.setEntityPosition(player, Config.SPAWN_POSITIONS[Tools.getInstance().rand.Next(Config.SPAWN_POSITIONS.Length)]);
+			API.setEntityDimension(player, character.dimension);
 			return;
 		}
 	}

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 using GTANetworkServer;
 using GTANetworkShared;
@@ -54,12 +53,20 @@ class Tasks : Script
 			// Brutally Wounder timer.
 			if(character.bw > 0)
 			{
+				API.sendChatMessageToPlayer(player, String.Format("Pozostało Ci {0} sekund", character.bw));
 				character.bw--;
 				if (character.bw == 0)
 				{
 					API.freezePlayer(player, false);
 					Commands.SELF_DO(player, "Otrząsnąłeś się po ostatniej wpadce i powoli dochodzisz do siebie.");
 				}
+			}
+
+			// Inform how many more minutes of BW status is left.
+			if (character.bw > 0)
+			{
+				int minutes = (int)Math.Floor((float)(character.bw / 60));
+				API.sendNotificationToPlayer(player, String.Format("Pozostało {0} minut BW.", minutes), false);
 			}
 		}
 	}
@@ -86,6 +93,7 @@ class Tasks : Script
 				character.hours++;
 				character.minutes = 0;
 			}
+
 
 
 		}

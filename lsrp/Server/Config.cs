@@ -30,4 +30,13 @@ public class Config
 	};
 
 	public enum LOGS { DEBUG, INFO, DB };
+
+	public static readonly string COLOR_ME = "C2A2DA";
+	public static readonly string COLOR_DO = "9A9CCD";
+	public static readonly string COLOR_B = "AFAFAF";
+	public static readonly string COLOR_C = "E6E6E6";
+	public static readonly string COLOR_K = "E6E6E6";
+	public static readonly string COLOR_I = "FFFFFF";
+	public static readonly string COLOR_RED = "FF0000";
+	public static readonly string COLOR_GREEN = "00FF00";
 }

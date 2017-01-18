@@ -48,21 +48,21 @@ class Commands : Script
 	[Command("b", GreedyArg = true)]
 	public void CHAT_b(Client player, string text)
 	{
-		Tools.getInstance().ProxDetector(player, 30, "AFAFAF", String.Format("(({0}: {1}))", API.getEntityData(player, "global_username"), text));
+		Tools.getInstance().ProxDetector(player, 30, Config.COLOR_B, String.Format("(({0}: {1}))", API.getEntityData(player, "global_username"), text));
 		return;
 	}
 
 	[Command("c", GreedyArg = true)]
 	public void CHAT_c(Client player, string text)
 	{
-		Tools.getInstance().ProxDetector(player, 15, "E6E6E6", String.Format("{0} (szepcze): {1}", player.name, text));
+		Tools.getInstance().ProxDetector(player, 15, Config.COLOR_C, String.Format("{0} (szepcze): {1}", player.name, text));
 		return;
 	}
 
 	[Command("k", GreedyArg = true)]
 	public void CHAT_k(Client player, string text)
 	{
-		Tools.getInstance().ProxDetector(player, 45, "E6E6E6", String.Format("{0} (krzyczy): {1}", player.name, text));
+		Tools.getInstance().ProxDetector(player, 45, Config.COLOR_K, String.Format("{0} (krzyczy): {1}", player.name, text));
 		return;
 	}
 
@@ -75,7 +75,7 @@ class Commands : Script
 			return;
 		}
 
-		API.sendChatMessageToAll("~#FFFFFF~", String.Format("{0}: {1}", API.getEntityData(player, "global_username"), text));
+		API.sendChatMessageToAll("~#" + Config.COLOR_I + "~", String.Format("{0}: {1}", API.getEntityData(player, "global_username"), text));
 		return;
 	}
 
@@ -106,7 +106,76 @@ class Commands : Script
 	 * Admin commands
 	 * **************************************************
 	 */
+	[Command("bw", GreedyArg = true)]
+	public void COMMAND_bw(Client player, string command)
+	{
+		string[] cmds = command.Split(' ');
 
+		// If no parameters passed show command error.
+		if(cmds.Length <= 0)
+		{
+			WrongCommandUse(player, "/bw [zdejmij/naloz]");
+			return;
+		}
+
+		// Turning someone's BW off
+		if(cmds[0] == "zdejmij")
+		{
+			if(cmds.Length < 3)
+			{
+				WrongCommandUse(player, "/bw [zdejmij] [imie i nazwisko]");
+				return;
+			}
+
+			string player_name = Tools.Capitalize(cmds[1]) + ' ' + Tools.Capitalize(cmds[2]);
+			API.sendChatMessageToPlayer(player, player_name);
+			Client give_player = API.getPlayerFromName(player_name);
+
+			if (give_player == null)
+			{
+				WrongCommandUse(player, "Ten gracz nie istnieje.");
+				return;
+			}
+
+			Database.characters character = API.getEntityData(player, "char");
+			character.bw = 1; // Let tasks handle actually stopping bw.
+			Success(player, "BW zostało zdjęte.");
+			return;
+
+		} else if(cmds[0] == "naloz")
+		{
+			if (cmds.Length < 4)
+			{
+				WrongCommandUse(player, "/bw [zdejmij] [imie i nazwisko] [czas w minutach]");
+				return;
+			}
+
+			string player_name = Tools.Capitalize(cmds[1]) + ' ' + Tools.Capitalize(cmds[2]);
+			Client give_player = API.getPlayerFromName(player_name);
+
+			if (give_player == null)
+			{
+				WrongCommandUse(player, "Ten gracz nie istnieje.");
+				return;
+			}
+
+			int bw_time = Convert.ToInt32(cmds[3]);
+
+			if (bw_time <= 0 || bw_time > 60)
+			{
+				WrongCommandUse(player, "BW może trwać od 1 minuty do 60 minut.");
+				return;
+			}
+
+			Database.characters character = API.getEntityData(player, "char");
+			character.bw = bw_time * 60;
+			Success(player, "BW zostało nadane.");
+			
+		} else
+		{
+			WrongCommandUse(player, "/bw [zdejmij/naloz]");
+		}
+	}
 
 
 	/**
@@ -142,17 +211,31 @@ class Commands : Script
 	 */
 	public static void PLAYER_ME(Client player, string text)
 	{
-		Tools.getInstance().ProxDetector(player, 30, "C2A2DA", String.Format("*** {0} {1} ***", player.name, text));
+		Tools.getInstance().ProxDetector(player, 30, Config.COLOR_ME, String.Format("*** {0} {1} ***", player.name, text));
 	}
 
 	public static void PLAYER_DO(Client player, string text)
 	{
-		Tools.getInstance().ProxDetector(player, 30, "9A9CCD", String.Format("** {1} ({0}) **", player.name, text));
+		Tools.getInstance().ProxDetector(player, 30, Config.COLOR_DO, String.Format("** {1} ({0}) **", player.name, text));
 	}
 
 	public static void SELF_DO(Client player, string text)
 	{
-		Tools.getInstance().SelfMessage(player, "9A9CCD", String.Format("** {0} **", text));
+		Tools.getInstance().SelfMessage(player, Config.COLOR_DO, String.Format("** {0} **", text));
+	}
+
+	/**
+	 * **************************************************
+	 * Errors / warnings / bad param messages / etc.
+	 * **************************************************
+	 */
+	public static void WrongCommandUse(Client player, string proper_use)
+	{
+		Tools.getInstance().SelfMessage(player, Config.COLOR_RED, String.Format("[Błąd]: {0}", proper_use));
+	}
+	public static void Success(Client player, string success_msg)
+	{
+		Tools.getInstance().SelfMessage(player, Config.COLOR_GREEN, String.Format("[Sukces]: {0}", success_msg));
 	}
 
 	/**
