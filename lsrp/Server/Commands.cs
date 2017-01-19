@@ -133,30 +133,6 @@ class Commands : Script
 		return;
 	}
 
-	[Command("odloz")]
-	public void COMMAND_odloz(Client player)
-	{
-		List<Item> player_items = Items.getInstance().GetAllPlayerItems(player);
-		List<ItemTransportObject> itos = new List<ItemTransportObject>();
-		foreach (Item it in player_items)
-		{
-			ItemTransportObject ito = new ItemTransportObject();
-			ito.iid = it.iid;
-			ito.name = it.name;
-			itos.Add(ito);
-		}
-		API.triggerClientEvent(player, "lsrp_show_own_items_to_drop", API.toJson(itos));
-		return;
-	}
-
-	[Command("podnies")]
-	public void COMMAND_podnies(Client player)
-	{
-		List<ItemTransportObject> items_nearby = Items.getInstance().ListNearbyItems(player);
-		API.triggerClientEvent(player, "lsrp_show_nearby_items", API.toJson(items_nearby));
-		return;
-	}
-
 	/**
 	 * **************************************************
 	 * Admin commands

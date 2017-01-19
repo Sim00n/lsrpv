@@ -86,8 +86,9 @@
     <Content Include="Client\cef\login\jquery311.js" />
     <Content Include="Client\cef\login\logo.png" />
     <Content Include="Client\cef\login\ui.js" />
-    <Content Include="Client\client.js" />
+    <Content Include="Client\Login.js" />
     <Content Include="Client\cef\login\test.html" />
+    <Content Include="Client\HUD.js" />
     <Content Include="Client\Items.js" />
     <Content Include="meta.xml" />
     <Content Include="todo.txt" />

@@ -184,10 +184,20 @@ class Items : Script
 		if(eventName == "lsrp_use_item")
 		{
 			int iid = Convert.ToInt32(arguments[0]);
-			Item item = FindItemByID(iid);
-			if(item != null)
+
+			// -1 means they clicked pick up items
+			if (iid == -1)
 			{
-				item.Use(player);
+				List<ItemTransportObject> items_nearby = Items.getInstance().ListNearbyItems(player);
+				API.triggerClientEvent(player, "lsrp_show_nearby_items", API.toJson(items_nearby));
+				return;
+			} else
+			{
+				Item item = FindItemByID(iid);
+				if(item != null)
+				{
+					item.Use(player);
+				}
 			}
 		}
 		if (eventName == "lsrp_drop_item")
@@ -322,7 +332,7 @@ public class Item : Script
 
 	public Item()
 	{
-
+		// nuugh
 	}
 
 	public void Use(Client player) {
@@ -341,17 +351,17 @@ public class Item : Script
 				return;
 			}
 
-			int health = API.getPlayerHealth(player);
-			health = Tools.clamp(health + int1, 0, 100);
-			API.setPlayerHealth(player, health);
-
+			Player.getInstance().addToPlayerHealth(player, int1);
 			Commands.PLAYER_ME(player, String.Format(" spożywa {0}.", name));
 			Destroy();
 			return;
-		} else if(type == TYPE.CIGARETTE)
+
+		}
+		else if(type == TYPE.CIGARETTE)
 		{
-			//
-		} else if(type == TYPE.DICE)
+			// 
+		}
+		else if(type == TYPE.DICE)
 		{
 			if(int1 <= 0)
 			{
@@ -363,6 +373,10 @@ public class Item : Script
 			int result = rand.Next(1, int1+1);
 			Commands.PLAYER_ME(player, String.Format("rzucił kostką z {0} ściankami i wyrzucił {1}.", int1, result));
 			return;
+		}
+		else if(type == TYPE.CELLPHONE)
+		{
+			// 
 		}
 	}
 

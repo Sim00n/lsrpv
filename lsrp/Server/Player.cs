@@ -42,6 +42,13 @@ class Player : Script
 		return;
 	}
 
+	public void addToPlayerHealth(Client player, int add_health)
+	{
+		int health = API.getPlayerHealth(player);
+		health = Tools.clamp(health + add_health, 0, 100);
+		API.setPlayerHealth(player, add_health);
+	}
+
 	public bool IsPlayerAdmin(Client player)
 	{
 		return API.getEntityData(player, "global_admin") != 0;
