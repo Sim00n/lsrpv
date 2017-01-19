@@ -11,9 +11,10 @@
   <script src="Server/Events.cs" type="server" lang="csharp" />
   <script src="Server/Tasks.cs" type="server" lang="csharp" />
   <script src="Server/Player.cs" type="server" lang="csharp" />
-  
-  <script src="Client/client.js" type="client" lang="javascript" />
 
+  <script src="Client/client.js" type="client" lang="javascript" />
+  <script src="Client/Items.js" type="client" lang="javascript" />
+  
   <file src="Client/cef/login/test.html" />
   <file src="Client/cef/login/logo.png" />
   <file src="Client/cef/login/jquery311.js" />

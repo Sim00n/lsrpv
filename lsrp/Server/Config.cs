@@ -1,4 +1,5 @@
 ﻿using GTANetworkShared;
+using System.Collections.Generic;
 
 public class Config
 {
@@ -49,6 +50,34 @@ public class Config
 	}
 
 	public enum LOGS { DEBUG, INFO, DB };
+
+	public struct ITEM_OBJECT
+	{
+		public int model;
+		public float xoff, yoff, zoff, rx, ry, rz;
+		public Vector3 pos { get { return new Vector3(xoff, yoff, zoff); } } // no set
+		public Vector3 rot { get { return new Vector3(rx, ry, rz); } } // no set
+		public ITEM_OBJECT(int model, float xoff, float yoff, float zoff, float rx, float ry, float rz)
+		{
+			this.model = model;
+			this.xoff = xoff;
+			this.yoff = yoff;
+			this.zoff = zoff;
+			this.rx = rx;
+			this.ry = ry;
+			this.rz = rz;
+		}
+	}
+
+	public static Dictionary<Item.TYPE, ITEM_OBJECT> OBJECTS = new Dictionary<Item.TYPE, ITEM_OBJECT>()
+	{
+		{ Item.TYPE.WATCH,			new ITEM_OBJECT(1407761612,	0F, 0F, -1F, 0F, 0F, 0F)	},	// good
+		{ Item.TYPE.FOOD,			new ITEM_OBJECT(1655278098,	0F, 0F, -1F, 0F, 0F, 0F)	},	// good
+		{ Item.TYPE.CIGARETTE,		new ITEM_OBJECT(66849370,	0F, 0F, -1F, -90F, 0F, 0F)	},	// good
+		{ Item.TYPE.DICE,			new ITEM_OBJECT(2104951174,	0F, 0F, -1F, 0F, 0F, 0F)	},	// shitty pool ball
+		{ Item.TYPE.CELLPHONE,		new ITEM_OBJECT(760935785,	0F, 0F, -1F, -90F, 0F, 0F)	},	// good
+	};
+
 
 	/**
 	 * Colors

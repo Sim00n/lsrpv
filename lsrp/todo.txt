@@ -14,8 +14,15 @@
 	[x] Ładowanie z bazy
 	[x] /p z listą
 	[ ] Odkładanie przedmiotów
+		[x] Na ziemie
+		[ ] W pojazdach
+		[ ] Do innego przedmiotu
+	[ ] Podnoszenie przedmiotów
+		[x] Z ziemi
+		[ ] Z pojazdu
+		[ ] Z innego przedmiotu
 	[x] Używanie przedmiotów
-	[ ] Usuwanie przedmiotów po użyciu
+	[x] Usuwanie przedmiotów po użyciu
 		[x] Z gry
-		[ ] Z bazy
+		[x] Z bazy
 	

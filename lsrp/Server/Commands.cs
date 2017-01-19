@@ -54,6 +54,15 @@ class Commands : Script
 		return;
 	}
 
+	[Command("o")]
+	public void COMMAND_o(Client player, int id, float zoff, int r1, int r2, int r3)
+	{
+		Vector3 pos = player.position;
+		pos.Z += zoff;
+		API.createObject(id, pos, new Vector3(r1, r2, r3), 0);
+		return;
+	}
+
 
 	/**
 	 * **************************************************
@@ -121,6 +130,30 @@ class Commands : Script
 			itos.Add(ito);
 		}
 		API.triggerClientEvent(player, "lsrp_show_own_items", API.toJson(itos));
+		return;
+	}
+
+	[Command("odloz")]
+	public void COMMAND_odloz(Client player)
+	{
+		List<Item> player_items = Items.getInstance().GetAllPlayerItems(player);
+		List<ItemTransportObject> itos = new List<ItemTransportObject>();
+		foreach (Item it in player_items)
+		{
+			ItemTransportObject ito = new ItemTransportObject();
+			ito.iid = it.iid;
+			ito.name = it.name;
+			itos.Add(ito);
+		}
+		API.triggerClientEvent(player, "lsrp_show_own_items_to_drop", API.toJson(itos));
+		return;
+	}
+
+	[Command("podnies")]
+	public void COMMAND_podnies(Client player)
+	{
+		List<ItemTransportObject> items_nearby = Items.getInstance().ListNearbyItems(player);
+		API.triggerClientEvent(player, "lsrp_show_nearby_items", API.toJson(items_nearby));
 		return;
 	}
 

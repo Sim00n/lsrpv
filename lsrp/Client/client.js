@@ -1,6 +1,5 @@
 ﻿var cef = null;
 var character_choice_menu = null;
-var items_list_menu = null;
 
 var hud = {};
 hud.money = 0;
@@ -58,24 +57,6 @@ API.onServerEventTrigger.connect(function (eventName, args) {
 
 		API.showCursor(true);
 		character_choice_menu.Visible = true;
-	} else if (eventName == 'lsrp_show_own_items') {
-		var items = JSON.parse(args[0]);
-
-		items_list_menu = API.createMenu("LS-RP V", "Przedmioty", 0, 0, 4);
-
-		for (i = 0; i < items.length; i++) {
-			items_list_menu.AddItem(API.createMenuItem(items[i].name, "" + items[i].iid));
-		}
-
-		items_list_menu.OnItemSelect.connect(function (sender, item, index) {
-			items_list_menu.Visible = false;
-			items_list_menu = null;
-			API.showCursor(false);
-			API.triggerServerEvent("lsrp_use_item", item.Description);
-		});
-
-		API.showCursor(true);
-		items_list_menu.Visible = true;
 	} else if (eventName == 'lsrp_update_hud') {
 		hud.money = args[0];
 		hud.bankmoney = args[1];
@@ -86,9 +67,6 @@ API.onUpdate.connect(function () {
 	if (character_choice_menu != null) {
 		API.drawMenu(character_choice_menu);
 	}
-	if (items_list_menu != null) {
-		API.drawMenu(items_list_menu);
-	}
 
 	API.drawText("$" + hud.money, API.getScreenResolutionMantainRatio().Width - 15, 50, 1, 115, 186, 131, 255, 4, 2, false, true, 0);
 	API.drawText("$" + hud.bankmoney, API.getScreenResolutionMantainRatio().Width - 15, 110, 0.8, 115, 179, 186, 255, 4, 2, false, true, 0);
@@ -96,9 +74,7 @@ API.onUpdate.connect(function () {
 
 API.onKeyDown.connect(function (sender, e) {
 	if (e.KeyCode == Keys.Escape) {
-		items_list_menu.Visible = false;
-		items_list_menu = null;
-		API.showCursor(false);
+		// nic
 	}
 });
 

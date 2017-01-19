@@ -88,6 +88,7 @@
     <Content Include="Client\cef\login\ui.js" />
     <Content Include="Client\client.js" />
     <Content Include="Client\cef\login\test.html" />
+    <Content Include="Client\Items.js" />
     <Content Include="meta.xml" />
     <Content Include="todo.txt" />
   </ItemGroup>
