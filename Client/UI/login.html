@@ -1,0 +1,49 @@
+﻿<!DOCTYPE HTML>
+<head>
+	<meta charset="UTF-8" />
+	<style type="text/css">
+		body { background: rgba(0,0,0,0.2); text-align: center; color: #fff; }
+		#error { color:#ff0000; font-weight: bold; }
+	</style>
+</head>
+<body>
+	<h1>LSS-RP</h1>
+    <h2>Czas wracać do miasta..</h2>
+
+	<div id="error"></div>
+
+	Username<br>
+	<input type="text" id="username"/><br>
+	Password<br>
+	<input type="password" id="password"/><br>
+	<input type="submit" id="logginBtn" value="Login" />
+
+	<script>
+	var loginButton = document.getElementById("logginBtn");
+	function onLoginError(message) {
+		document.getElementById("error").innerHTML = message;
+		loginButton.disable = false;
+	}
+
+	loginButton.onclick = function() {
+		var username = document.getElementById("username").value;
+
+		if (username.length < 3) {
+			document.getElementById("error").innerHTML = "Username must be minimum 3 characters long";
+			return false;
+		}
+
+		var password = document.getElementById("password").value;
+
+		if (password.length < 3) {
+			document.getElementById("error").innerHTML = "Password must be minimum 3 characters long";
+			return false;
+		}
+
+		document.getElementById("error").innerHTML = "Please wait..";
+		loginButton.disable = true;
+		resourceCall("DoLogin", username, password);
+		return false;
+	};
+	</script>
+</body>

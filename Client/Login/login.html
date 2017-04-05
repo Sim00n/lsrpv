@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Login/Logout animation concept</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+    <link href="style.css" rel="stylesheet" />
+<script src='jquery-3.1.1.min.js'></script>
+<script type="text/javascript">
+var val = false;
+var animating = false;
+function onLoginError(message, val2) {
+    document.getElementById("error").innerHTML = message;
+    if(animating == true)
+        {
+            animating = false;
+            var that = this;
+            $( ".login__submit" ).removeClass("processing");
+            val = val2;
+        }
+    };
+$(document).ready(function() {
+  
+  var submitPhase1 = 1500,
+      submitPhase2 = 400,
+      logoutPhase1 = 800,
+      $login = $(".login"),
+      $app = $(".app");
+
+  
+  function ripple(elem, e) {
+    $(".ripple").remove();
+    var elTop = elem.offset().top,
+        elLeft = elem.offset().left,
+        x = e.pageX - elLeft,
+        y = e.pageY - elTop;
+    var $ripple = $("<div class='ripple'></div>");
+    $ripple.css({top: y, left: x});
+    elem.append($ripple);
+  };
+  
+
+  $(document).on("click", ".login__submit", function(e) {
+        var username = document.getElementById("login").value;
+        var password = document.getElementById("password").value;
+        resourceCall("Login", username, password);
+        if (animating) return;
+        animating = true;
+        var that = this;
+      // ripple($(that), e);
+        $(that).addClass("processing");
+        if(val == true)
+        {
+          if (animating) return;
+            animating = true;
+            var that = this;
+           // ripple($(that), e);
+            $(that).addClass("processing");
+            setTimeout(function() {
+              $(that).addClass("success");
+              setTimeout(function() {
+                $app.show();
+                $app.css("top");
+                $app.addClass("active");
+                
+              }, submitPhase2 - 70);
+              setTimeout(function() {
+                $login.hide();
+                $login.addClass("inactive");
+                animating = false;
+                $(that).removeClass("success processing");
+
+
+              }, submitPhase2);
+            }, submitPhase1);  
+        }
+        
+      });
+      
+    });
+</script>
+</head>
+
+<body>
+    <div class="cont">
+        <div class="demo">
+            <div class="login">
+                <div class="login__check"></div>
+                <div class="login__form">
+                    <div class="login__row">
+                        
+                            <svg class="login__icon name svg-icon" viewBox="0 0 20 20">
+                                <path d="M0,20 a10,8 0 0,1 20,0z M10,0 a4,4 0 0,1 0,8 a4,4 0 0,1 0,-8" />
+                            </svg>
+                            
+                            <input type="text" class="login__input name" id="login" placeholder="Nazwa użytkownika" />
+
+                    </div>
+                    <div class="login__row">
+                        <svg class="login__icon pass svg-icon" viewBox="0 0 20 20">
+                            <path d="M0,20 20,20 20,8 0,8z M10,13 10,16z M4,8 a6,8 0 0,1 12,0" />
+                        </svg>
+                        <input type="password" class="login__input pass" id="password" placeholder="Hasło..." />
+                    </div>
+                    <span id="errssr" style="
+    font-size: 9pt;
+    color: #b90000;
+"></span>
+                        <button type="submit" id="button" class="login__submit">Zaloguj się</button>
+                
+                    <p class="login__signup">Nie posiadasz konta? &nbsp;<a>Wejdź na c-rp.pl</a></p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <h1 style="
+    position: absolute;
+    
+    left: calc(48%);
+    bottom: 1%;
+    transform: translate(-50%, -50%);
+    font-family: Tahoma, sans-serif;
+    font-weight: 500;
+    font-size: 25px;
+    color: #fff;
+    text-shadow: #000 0px 1px 3px;
+    " id="error"></h1>
+
+</body>
+</html>

@@ -1,0 +1,12 @@
+C:\Users\Aliqe-PC\Desktop\GTAVRP-master\GTAVRP-master\RP\Database\bin\Debug\Database.dll.config
+C:\Users\Aliqe-PC\Desktop\GTAVRP-master\GTAVRP-master\RP\Database\bin\Debug\Database.dll
+C:\Users\Aliqe-PC\Desktop\GTAVRP-master\GTAVRP-master\RP\Database\bin\Debug\Database.pdb
+C:\Users\Aliqe-PC\Desktop\GTAVRP-master\GTAVRP-master\RP\Database\bin\Debug\MySql.Data.dll
+C:\Users\Aliqe-PC\Desktop\GTAVRP-master\GTAVRP-master\RP\Database\obj\Debug\Database.dll
+C:\Users\Aliqe-PC\Desktop\GTAVRP-master\GTAVRP-master\RP\Database\obj\Debug\Database.pdb
+C:\Users\Aliqe-PC\Desktop\cRP Source\Database\bin\Debug\Database.dll.config
+C:\Users\Aliqe-PC\Desktop\cRP Source\Database\bin\Debug\Database.dll
+C:\Users\Aliqe-PC\Desktop\cRP Source\Database\bin\Debug\Database.pdb
+C:\Users\Aliqe-PC\Desktop\cRP Source\Database\bin\Debug\MySql.Data.dll
+C:\Users\Aliqe-PC\Desktop\cRP Source\Database\obj\Debug\Database.dll
+C:\Users\Aliqe-PC\Desktop\cRP Source\Database\obj\Debug\Database.pdb

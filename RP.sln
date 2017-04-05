@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{66CDDE0B-F3EB-45EF-A746-029393EF8B05}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{A1DA6757-8544-4FC0-89AF-B90CE52E3311}"
+	ProjectSection(SolutionItems) = preProject
+		Client\Core.js = Client\Core.js
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Meta", "Meta", "{B7A56584-CED5-4F58-8B14-3E1FDC2D663B}"
+	ProjectSection(SolutionItems) = preProject
+		..\meta.xml = ..\meta.xml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Database", "Database\Database.csproj", "{0F345436-8664-4746-AD2D-DB4187D91976}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ACL", "ACL", "{647D0570-B292-49C2-A729-7EEA9666893C}"
+	ProjectSection(SolutionItems) = preProject
+		..\acl.xml = ..\acl.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Login", "Login", "{039203B3-666F-4E19-8258-B64BB1C19F17}"
+	ProjectSection(SolutionItems) = preProject
+		..\cRP 2k17\resources\cRP\Client\Login\login.html = ..\cRP 2k17\resources\cRP\Client\Login\login.html
+		Client\Login\login.html = Client\Login\login.html
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{66CDDE0B-F3EB-45EF-A746-029393EF8B05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66CDDE0B-F3EB-45EF-A746-029393EF8B05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66CDDE0B-F3EB-45EF-A746-029393EF8B05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66CDDE0B-F3EB-45EF-A746-029393EF8B05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F345436-8664-4746-AD2D-DB4187D91976}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F345436-8664-4746-AD2D-DB4187D91976}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F345436-8664-4746-AD2D-DB4187D91976}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F345436-8664-4746-AD2D-DB4187D91976}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{039203B3-666F-4E19-8258-B64BB1C19F17} = {A1DA6757-8544-4FC0-89AF-B90CE52E3311}
+	EndGlobalSection
+EndGlobal
